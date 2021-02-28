@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import Parent from './Parent';
+import React,{useState,createContext} from 'react';
+
+const AppContext = createContext();
+//craeteContext -> context api object
+//1. Provider
+//2. consumer
 
 function App() {
+  // const [state, setState] = useState('Ameen');
+  
+  //Multiple context
+  const [state, setState] = useState({name:'Ameen', age: 20});
+
+  
+  const increnetAge =() => {
+    setState(prevSate => ({
+      ...prevSate,
+      age: state.age + 1
+    }))
+  }
+  
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <AppContext.Provider value={state}>
+    <AppContext.Provider value={{state,increnetAge}}>
+     <Parent />
+    </AppContext.Provider>
   );
 }
 
-export default App;
+export  {AppContext, App};
